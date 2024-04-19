@@ -1,12 +1,10 @@
-CREATE SCHEMA IF NOT EXISTS swscreen;
+CREATE SCHEMA IF NOT EXISTS screeny;
 
 -- SET NAMES 'UTF8MB4';
--- SET
--- TIME_ZONE 'Europe/Riga';
--- SET
--- TIME_ZONE = '+3:00';
+-- SET TIME_ZONE 'Europe/Riga';
+-- SET TIME_ZONE = '+3:00';
 
-USE swscreen;
+USE screeny;
 
 DROP TABLE IF EXISTS BelowInfo;
 CREATE TABLE BelowInfo
