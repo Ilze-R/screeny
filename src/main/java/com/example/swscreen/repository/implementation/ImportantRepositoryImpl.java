@@ -37,13 +37,6 @@ public class ImportantRepositoryImpl implements ImportantRepository<BelowInfo> {
         long generatedId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         belowInfo.setId(generatedId);
         return belowInfo;
-//        MapSqlParameterSource parameters = new MapSqlParameterSource();
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//        jdbc.update(INSERT_IMPORTANT_QUERY, parameters, keyHolder);
-//        long generatedId = Objects.requireNonNull(keyHolder.getKey()).longValue();
-//        parameters.addValue("description", belowInfo.getDescription());
-//        belowInfo.setId(generatedId);
-//        return belowInfo;
     }
 
     @Override

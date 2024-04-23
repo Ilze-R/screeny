@@ -26,7 +26,7 @@ public class SwScreenApplication {
 		UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowCredentials(true);
-		corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200", "http://localhost:3000"));
+		corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200", "http://localhost:3000", "http://screen.local/", "http://screen.local"));
 		//corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
 		corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
 				"Accept", "Jwt-Token", "Authorization", "Origin", "Accept", "X-Requested-With",
@@ -38,16 +38,4 @@ public class SwScreenApplication {
 		return new CorsFilter(urlBasedCorsConfigurationSource);
 	}
 
-//	@Bean
-//	public TomcatServletWebServerFactory servletContainer() {
-//		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
-//		Connector ajpConnector = new Connector("AJP/1.3");
-//		ajpConnector.setPort(9090);
-//		ajpConnector.setSecure(false);
-//		ajpConnector.setAllowTrace(false);
-//		ajpConnector.setScheme("http");
-//		((AbstractAjpProtocol<?>)ajpConnector.getProtocolHandler()).setSecretRequired(false);
-//		tomcat.addAdditionalTomcatConnectors(ajpConnector);
-//		return tomcat;
-//	}
 }
