@@ -3,6 +3,7 @@ package com.example.swscreen.controller;
 import com.example.swscreen.domain.BelowInfo;
 import com.example.swscreen.service.ImportantService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.swscreen.domain.HttpResponse;
@@ -18,7 +19,7 @@ public class MainController {
 
     private final ImportantService importantService;
 
-    @PostMapping(path = "/create/important")
+    @PostMapping(path = "/create/important", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpResponse> addImportantInformation(@RequestBody BelowInfo belowInfo) {
    BelowInfo createdBelowInfo = importantService.createImportant(belowInfo);
         return ResponseEntity.ok(
