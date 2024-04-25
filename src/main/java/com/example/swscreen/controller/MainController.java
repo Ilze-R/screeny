@@ -19,6 +19,7 @@ public class MainController {
 
     private final ImportantService importantService;
 
+    @CrossOrigin(origins = "http://screen.local")
     @PostMapping(path = "/create/important", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpResponse> addImportantInformation(@RequestBody BelowInfo belowInfo) {
    BelowInfo createdBelowInfo = importantService.createImportant(belowInfo);
