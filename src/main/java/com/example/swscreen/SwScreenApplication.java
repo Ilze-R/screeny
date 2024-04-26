@@ -15,6 +15,18 @@ public class SwScreenApplication {
 		SpringApplication.run(SwScreenApplication.class, args);
 	}
 
+	@Bean
+	public CorsFilter corsFilter() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.addAllowedOrigin("http://screen.local");
+		config.addAllowedHeader("*");
+		config.addAllowedMethod("*");
+		source.registerCorsConfiguration("/**", config);
+		return new CorsFilter(source);
+	}
+
 
 //	@Bean
 //	public CorsFilter corsFilter() {
