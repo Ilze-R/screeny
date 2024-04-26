@@ -19,7 +19,7 @@ public class MainController {
 
     private final ImportantService importantService;
 
-    @CrossOrigin(origins = "http://screen.local")
+    //@CrossOrigin(origins = "http://screen.local")
     @GetMapping("/test")
     public ResponseEntity<String> testCors() {
         return ResponseEntity.ok("CORS is working!");
