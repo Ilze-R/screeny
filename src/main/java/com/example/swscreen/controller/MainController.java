@@ -18,7 +18,7 @@ import static java.util.Map.of;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping(path = "/screen")
+@RequestMapping(path = "/api")
 @RequiredArgsConstructor
 public class MainController {
 
