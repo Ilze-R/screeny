@@ -1,9 +1,12 @@
 package com.example.swscreen.repository.implementation;
 
+import com.example.swscreen.controller.MainController;
 import com.example.swscreen.domain.BelowInfo;
 import com.example.swscreen.repository.ImportantRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -25,17 +28,21 @@ import static com.example.swscreen.query.ImportantQuery.SELECT_IMPORTANT_QUERY;
 @RequiredArgsConstructor
 @Slf4j
 public class ImportantRepositoryImpl implements ImportantRepository<BelowInfo> {
+
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
     private final NamedParameterJdbcTemplate jdbc;
     private final JdbcTemplate jdbcTemplate;
 
     @Override
     public BelowInfo createImportant(BelowInfo belowInfo) {
+        logger.debug("Insert in database: {}", belowInfo);
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("description", belowInfo.getDescription());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbc.update(INSERT_IMPORTANT_QUERY, parameters, keyHolder);
         long generatedId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         belowInfo.setId(generatedId);
+        logger.debug("Inserted, retrieved ID: {}", generatedId);
         return belowInfo;
     }
 
