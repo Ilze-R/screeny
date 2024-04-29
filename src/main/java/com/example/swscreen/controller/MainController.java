@@ -4,6 +4,7 @@ import com.example.swscreen.domain.BelowInfo;
 import com.example.swscreen.service.ImportantService;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,14 +39,28 @@ public class MainController {
    BelowInfo createdBelowInfo = importantService.createImportant(belowInfo);
 
         logger.info("Created new important: {}", createdBelowInfo);
-        return ResponseEntity.ok(
-                HttpResponse.builder()
-                        .timeStamp(now().toString())
-                        .data(of("belowInfo", createdBelowInfo))
-                        .message("BelowInfo created")
-                        .status(OK)
-                        .statusCode(OK.value())
-                        .build());
+
+        HttpResponse responseBody = HttpResponse.builder()
+                .timeStamp(now().toString())
+                .data(of("belowInfo", createdBelowInfo))
+                .message("BelowInfo created")
+                .status(OK)
+                .statusCode(OK.value())
+                .build();
+//        return ResponseEntity.ok(
+//                HttpResponse.builder()
+//                        .timeStamp(now().toString())
+//                        .data(of("belowInfo", createdBelowInfo))
+//                        .message("BelowInfo created")
+//                        .status(OK)
+//                        .statusCode(OK.value())
+//                        .build());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");  // Example CORS header
+        headers.add("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+
+        return new ResponseEntity<>(responseBody, headers, OK);
     }
 
     @DeleteMapping("/delete/important/{id}")
