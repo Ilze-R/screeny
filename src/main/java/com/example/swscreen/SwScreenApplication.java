@@ -31,6 +31,15 @@ public class SwScreenApplication {
 	}
 
 //	@Bean
+//	public SecurityWebFilterChain securityWebFilterChain(
+//			ServerHttpSecurity http) {
+//		return http.authorizeExchange()
+//				.pathMatchers("/actuator/**").permitAll()
+//				.anyExchange().authenticated()
+//				.and().build();
+//	}
+
+//	@Bean
 //	public CorsFilter corsFilter() {
 //		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //		CorsConfiguration config = new CorsConfiguration();
