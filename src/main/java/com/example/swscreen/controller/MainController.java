@@ -56,11 +56,13 @@ public class MainController {
 //                        .statusCode(OK.value())
 //                        .build());
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Access-Control-Allow-Origin", "*");  // Example CORS header
-        headers.add("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Access-Control-Allow-Origin", "*");  // Example CORS header
+//        headers.add("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
 
-        return new ResponseEntity<>(responseBody, headers, OK);
+//        return new ResponseEntity<>(responseBody, headers, OK);
+
+        return new ResponseEntity<>(responseBody, OK);
     }
 
     @DeleteMapping("/delete/important/{id}")
