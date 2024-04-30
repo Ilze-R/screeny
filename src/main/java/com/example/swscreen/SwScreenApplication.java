@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
@@ -18,60 +17,6 @@ public class SwScreenApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SwScreenApplication.class, args);
 	}
-
-//	@Bean
-//	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//		return http
-//				.cors(Customizer.withDefaults()) //enables cors
-//				//The rest of your configurations
-//				.build();
-//	}
-//
-//	@Bean
-//	CorsConfigurationSource corsConfigurationSource() {
-//		CorsConfiguration configuration = new CorsConfiguration();
-//		configuration.setAllowedOrigins(List.of("http://localhost:3000")); //allows React to access the API from origin on port 3000. Change accordingly
-//		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-//		configuration.setAllowCredentials(true);
-//		configuration.addAllowedHeader("*");
-//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		source.registerCorsConfiguration("/**", configuration);
-//		return source;
-//	}
-
-//	@Bean
-//	public CorsFilter corsFilter() {
-//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		CorsConfiguration config = new CorsConfiguration();
-//		config.setAllowCredentials(true);
-//		config.addAllowedOrigin("*");
-//		config.addAllowedHeader("*");
-//		config.addAllowedMethod("*");
-//		source.registerCorsConfiguration("/**", config);
-//		return new CorsFilter(source);
-//	}
-
-//	@Bean
-//	public SecurityWebFilterChain securityWebFilterChain(
-//			ServerHttpSecurity http) {
-//		return http.authorizeExchange()
-//				.pathMatchers("/actuator/**").permitAll()
-//				.anyExchange().authenticated()
-//				.and().build();
-//	}
-
-//	@Bean
-//	public CorsFilter corsFilter() {
-//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		CorsConfiguration config = new CorsConfiguration();
-//		config.setAllowCredentials(true);
-//		config.addAllowedOrigin("http://screen.local/api");
-//		config.addAllowedHeader("*");
-//		config.addAllowedMethod("*");
-//		source.registerCorsConfiguration("/**", config);
-//		return new CorsFilter(source);
-//	}
-
 
 	@Bean
 	public CorsFilter corsFilter() {
@@ -89,7 +34,6 @@ public class SwScreenApplication {
 		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(urlBasedCorsConfigurationSource);
 	}
-
 
 //	@Bean
 //	public CorsFilter corsFilter() {

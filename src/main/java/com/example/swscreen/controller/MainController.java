@@ -46,7 +46,7 @@ public class MainController {
         List<BelowInfo> belowInfo = importantService.getAllImportant();
         HttpResponse responseBody = HttpResponse.builder()
                 .timeStamp(now().toString())
-                .data(of("below important information", belowInfo))
+                .data(of("important", belowInfo))
                 .message("Fetched all important")
                 .status(OK)
                 .statusCode(OK.value())

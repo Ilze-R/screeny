@@ -13,7 +13,6 @@ CREATE TABLE BelowInfo
     description VARCHAR(200) NOT NULL
 );
 
-
 DROP TABLE IF EXISTS MidInfo;
 CREATE TABLE MidInfo
 (

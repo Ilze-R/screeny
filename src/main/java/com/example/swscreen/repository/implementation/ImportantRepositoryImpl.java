@@ -17,12 +17,9 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-import static com.example.swscreen.query.ImportantQuery.INSERT_IMPORTANT_QUERY;
-import static com.example.swscreen.query.ImportantQuery.SELECT_IMPORTANT_QUERY;
+import static com.example.swscreen.query.ImportantQuery.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -35,6 +32,14 @@ public class ImportantRepositoryImpl implements ImportantRepository<BelowInfo> {
 
     @Override
     public BelowInfo createImportant(BelowInfo belowInfo) {
+        Optional<Long> optionalCount = Optional.ofNullable(jdbcTemplate.queryForObject("SELECT COUNT(*) FROM below_info", Long.class));
+        long count = optionalCount.orElse(0L);
+
+        if (count >= 4) {
+            Long oldestId = jdbcTemplate.queryForObject("SELECT id FROM below_info ORDER BY id ASC LIMIT 1", Long.class);
+            jdbcTemplate.update("DELETE FROM below_info WHERE id = ?", oldestId);
+            logger.debug("Deleted oldest record with ID: {}", oldestId);
+        }
         logger.debug("Insert in database: {}", belowInfo);
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("description", belowInfo.getDescription());
@@ -43,6 +48,7 @@ public class ImportantRepositoryImpl implements ImportantRepository<BelowInfo> {
         long generatedId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         belowInfo.setId(generatedId);
         logger.debug("Inserted, retrieved ID: {}", generatedId);
+
         return belowInfo;
     }
 
