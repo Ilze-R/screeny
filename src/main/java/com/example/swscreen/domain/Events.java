@@ -27,6 +27,6 @@ public class Events {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private Date date;
+    private Date created_at;
     private String description;
 }
