@@ -1,8 +1,8 @@
 package com.example.swscreen.repository.implementation;
 
 import com.example.swscreen.controller.MainController;
-import com.example.swscreen.domain.MidInfo;
-import com.example.swscreen.repository.MainInfoRepository;
+import com.example.swscreen.domain.MiddleInfo;
+import com.example.swscreen.repository.MiddleInfoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -21,18 +21,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.example.swscreen.query.MainInformationQuery.*;
+import static com.example.swscreen.query.MiddleInfoQuery.*;
 
 @Repository
 @RequiredArgsConstructor
 @Slf4j
-public class MainInfoRepositoryImpl implements MainInfoRepository<MidInfo> {
+public class MiddleInfoRepositoryImpl implements MiddleInfoRepository<MiddleInfo> {
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
     private final NamedParameterJdbcTemplate jdbc;
     private final JdbcTemplate jdbcTemplate;
     @Override
-    public MidInfo createMainInfo(MidInfo midInfo) {
+    public MiddleInfo createMainInfo(MiddleInfo middleInfo) {
         Optional<Long> recordsCount = Optional.ofNullable(jdbcTemplate.queryForObject("SELECT COUNT(*) FROM mid_info", Long.class));
         long count = recordsCount.orElse(0L);
 
@@ -41,23 +41,23 @@ public class MainInfoRepositoryImpl implements MainInfoRepository<MidInfo> {
             jdbcTemplate.update("DELETE FROM mid_info WHERE id = ?", oldestId);
         }
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("title", midInfo.getTitle());
-        parameters.addValue("created_at", midInfo.getCreated_at());
-        parameters.addValue("description", midInfo.getDescription());
-        parameters.addValue("illustration", midInfo.getIllustration());
+        parameters.addValue("title", middleInfo.getTitle());
+        parameters.addValue("created_at", middleInfo.getCreated_at());
+        parameters.addValue("description", middleInfo.getDescription());
+        parameters.addValue("illustration", middleInfo.getIllustration());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbc.update(INSERT_MAIN_QUERY, parameters, keyHolder);
         long generatedId = Objects.requireNonNull(keyHolder.getKey()).longValue();
-        midInfo.setId(generatedId);
+        middleInfo.setId(generatedId);
 
-        return midInfo;
+        return middleInfo;
     }
 
     @Override
-    public List<MidInfo> getAllMainInfo() {
+    public List<MiddleInfo> getAllMainInfo() {
         try {
             return jdbcTemplate.query(SELECT_ALL_MAIN_QUERY,
-                    new BeanPropertyRowMapper<>(MidInfo.class));
+                    new BeanPropertyRowMapper<>(MiddleInfo.class));
         } catch (DataAccessException e) {
             System.err.println("Error accessing data: " + e.getMessage());
             return new ArrayList<>();

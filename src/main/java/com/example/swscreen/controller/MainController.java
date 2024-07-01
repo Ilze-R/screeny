@@ -3,7 +3,7 @@ package com.example.swscreen.controller;
 import com.example.swscreen.domain.*;
 import com.example.swscreen.service.EventService;
 import com.example.swscreen.service.ImportantService;
-import com.example.swscreen.service.MainInfoService;
+import com.example.swscreen.service.MiddleInfoService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.MediaType;
@@ -27,7 +27,7 @@ public class MainController {
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
     private final ImportantService importantService;
     private final EventService eventService;
-    private final MainInfoService mainInfoService;
+    private final MiddleInfoService mainInfoService;
 
     @PostMapping(path = "/create/important", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpResponse> addImportantInformation(@RequestBody BelowInfo belowInfo) {
@@ -58,8 +58,8 @@ public class MainController {
     }
 
     @PostMapping(path = "/create/main", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpResponse> addMainInformation(@RequestBody MidInfo midInfo) {
-        MidInfo createdMain = mainInfoService.createMainInfo(midInfo);
+    public ResponseEntity<HttpResponse> addMainInformation(@RequestBody MiddleInfo middleInfo) {
+        MiddleInfo createdMain = mainInfoService.createMainInfo(middleInfo);
         HttpResponse responseBody = HttpResponse.builder()
                 .timeStamp(now().toString())
                 .data(of("main", createdMain))
@@ -112,7 +112,7 @@ public class MainController {
 
     @GetMapping(path = "/main", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpResponse> getAllMainInformation() {
-        List<MidInfo> mainInfo = mainInfoService.getAllMainInfo();
+        List<MiddleInfo> mainInfo = mainInfoService.getAllMainInfo();
         HttpResponse responseBody = HttpResponse.builder()
                 .timeStamp(now().toString())
                 .data(of("main", mainInfo))
