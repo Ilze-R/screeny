@@ -1,5 +1,4 @@
 package com.example.swscreen.repository;
-import com.example.swscreen.domain.BelowInfo;
 import com.example.swscreen.domain.Events;
 
 import java.util.List;

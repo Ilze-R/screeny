@@ -43,7 +43,8 @@ public class EventRepositoryImpl  implements EventRepository<Events> {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("title", events.getTitle());
         parameters.addValue("created_at", events.getCreated_at());
-        parameters.addValue("description", events.getDescription());
+        parameters.addValue("time", events.getTime());
+        parameters.addValue("illustration", events.getIllustration());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbc.update(INSERT_EVENT_QUERY, parameters, keyHolder);
         long generatedId = Objects.requireNonNull(keyHolder.getKey()).longValue();

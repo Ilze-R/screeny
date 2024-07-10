@@ -3,7 +3,7 @@ package com.example.swscreen.controller;
 import com.example.swscreen.domain.*;
 import com.example.swscreen.service.EventService;
 import com.example.swscreen.service.ImportantService;
-import com.example.swscreen.service.MiddleInfoService;
+import com.example.swscreen.service.NewsService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.MediaType;
@@ -27,7 +27,7 @@ public class MainController {
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
     private final ImportantService importantService;
     private final EventService eventService;
-    private final MiddleInfoService mainInfoService;
+    private final NewsService newsService;
 
     @PostMapping(path = "/create/important", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpResponse> addImportantInformation(@RequestBody BelowInfo belowInfo) {
@@ -57,13 +57,13 @@ public class MainController {
         return new ResponseEntity<>(responseBody, OK);
     }
 
-    @PostMapping(path = "/create/main", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpResponse> addMainInformation(@RequestBody MiddleInfo middleInfo) {
-        MiddleInfo createdMain = mainInfoService.createMainInfo(middleInfo);
+    @PostMapping(path = "/create/news", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HttpResponse> addNews(@RequestBody News news) {
+        News createdNew = newsService.createNews(news);
         HttpResponse responseBody = HttpResponse.builder()
                 .timeStamp(now().toString())
-                .data(of("main", createdMain))
-                .message("Main created")
+                .data(of("news", createdNew))
+                .message("News topic created")
                 .status(OK)
                 .statusCode(OK.value())
                 .build();
@@ -110,13 +110,13 @@ public class MainController {
         return new ResponseEntity<>(responseBody, OK);
     }
 
-    @GetMapping(path = "/main", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpResponse> getAllMainInformation() {
-        List<MiddleInfo> mainInfo = mainInfoService.getAllMainInfo();
+    @GetMapping(path = "/news", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HttpResponse> getAllNews() {
+        List<News> news = newsService.getAllNews();
         HttpResponse responseBody = HttpResponse.builder()
                 .timeStamp(now().toString())
-                .data(of("main", mainInfo))
-                .message("Fetched all main")
+                .data(of("news", news))
+                .message("Fetched all news")
                 .status(OK)
                 .statusCode(OK.value())
                 .build();

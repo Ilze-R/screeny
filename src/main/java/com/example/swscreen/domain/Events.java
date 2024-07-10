@@ -1,5 +1,6 @@
 package com.example.swscreen.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_DEFAULT;
@@ -28,5 +30,7 @@ public class Events {
     private Long id;
     private String title;
     private Date created_at;
-    private String description;
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime time;
+    private String illustration;
 }

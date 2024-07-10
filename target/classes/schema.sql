@@ -29,13 +29,12 @@ CREATE TABLE SavedBelowInfo
 );
 
 
-DROP TABLE IF EXISTS MiddleInfo;
-CREATE TABLE MiddleInfo
+DROP TABLE IF EXISTS News;
+CREATE TABLE News
 (
     id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(50),
-    created_at DATETIME,
-    description VARCHAR(200),
+    description VARCHAR(1500),
     illustration VARCHAR(200)
 );
 
@@ -45,5 +44,6 @@ CREATE TABLE Events
     id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(50),
     created_at DATETIME,
-    description VARCHAR(200)
+    time TIME,
+    illustration VARCHAR(200)
 );
