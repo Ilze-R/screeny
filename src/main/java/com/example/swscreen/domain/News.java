@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.util.Date;
-
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_DEFAULT;
 
 @Setter
@@ -30,4 +28,6 @@ public class News {
     private String title;
     private String description;
     private String illustration;
+    private boolean favourite;
+    private boolean active;
 }

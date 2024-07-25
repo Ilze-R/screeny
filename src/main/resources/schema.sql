@@ -6,44 +6,107 @@ CREATE SCHEMA IF NOT EXISTS screen;
 
 USE screen;
 
-DROP TABLE IF EXISTS BelowInfo;
-CREATE TABLE BelowInfo
+DROP TABLE IF EXISTS Users;
+
+CREATE TABLE Users
+(
+    id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password   VARCHAR(255) DEFAULT NULL,
+    image_url  VARCHAR(255) DEFAULT 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+    CONSTRAINT UQ_Users_Username UNIQUE (username)
+);
+
+DROP TABLE IF EXISTS Role;
+
+CREATE TABLE Role
+(
+    id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name       VARCHAR(50) NOT NULL,
+    permission VARCHAR(255) NOT NULL,
+    CONSTRAINT UQ_Role_Name UNIQUE (name)
+);
+
+DROP TABLE IF EXISTS UserRoles;
+
+CREATE TABLE UserRoles
+(
+    id      BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNSIGNED NOT NULL,
+    role_id BIGINT UNSIGNED NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (role_id) REFERENCES Roles (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT UQ_UserRoles_User_Id UNIQUE (user_id)
+);
+
+DROP TABLE IF EXISTS important;
+CREATE TABLE important
 (
     id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     description VARCHAR(200) NOT NULL,
-    favourite BOOLEAN NOT NULL DEFAULT FALSE
+    favourite BOOLEAN NOT NULL DEFAULT FALSE,
+    active BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-DROP TABLE IF EXISTS CurrentBelowInfo;
-CREATE TABLE CurrentBelowInfo
+DROP TABLE IF EXISTS favourite_important;
+CREATE TABLE favourite_important
 (
     id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    description VARCHAR(200) NOT NULL
-);
-
-DROP TABLE IF EXISTS SavedBelowInfo;
-CREATE TABLE SavedBelowInfo
-(
-    id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    description VARCHAR(200) NOT NULL
+    important_id    BIGINT UNSIGNED NOT NULL,
+    description VARCHAR(200) NOT NULL,
+    favourite BOOLEAN NOT NULL DEFAULT FALSE,
+    active BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (important_id) REFERENCES important(id) ON DELETE CASCADE
 );
 
 
-DROP TABLE IF EXISTS News;
-CREATE TABLE News
+DROP TABLE IF EXISTS news;
+CREATE TABLE news
 (
     id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(50),
     description VARCHAR(1500),
-    illustration VARCHAR(200)
+    illustration VARCHAR(200),
+    favourite BOOLEAN NOT NULL DEFAULT FALSE,
+    active BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-DROP TABLE IF EXISTS Events;
-CREATE TABLE Events
+DROP TABLE IF EXISTS favourite_news;
+CREATE TABLE favourite_news
+(
+    id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    news_id    BIGINT UNSIGNED NOT NULL,
+    title VARCHAR(50),
+    description VARCHAR(200) NOT NULL,
+    illustration VARCHAR(200),
+    favourite BOOLEAN NOT NULL DEFAULT FALSE,
+    active BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (news_id) REFERENCES news(id) ON DELETE CASCADE
+);
+
+
+DROP TABLE IF EXISTS events;
+CREATE TABLE events
 (
     id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(50),
-    created_at DATETIME,
+    event_date DATETIME,
     time TIME,
-    illustration VARCHAR(200)
+    illustration VARCHAR(200),
+    favourite BOOLEAN NOT NULL DEFAULT FALSE,
+    active BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+DROP TABLE IF EXISTS favourite_events;
+CREATE TABLE favourite_events
+(
+    id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    event_id    BIGINT UNSIGNED NOT NULL,
+    title VARCHAR(50),
+    event_date DATETIME,
+    time TIME,
+    illustration VARCHAR(200),
+    favourite BOOLEAN NOT NULL DEFAULT FALSE,
+    active BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );

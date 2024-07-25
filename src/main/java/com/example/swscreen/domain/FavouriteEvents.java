@@ -1,5 +1,6 @@
 package com.example.swscreen.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +12,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalTime;
+import java.util.Date;
+
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_DEFAULT;
 
 @Setter
@@ -20,9 +24,17 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_DEFAULT;
 @AllArgsConstructor
 @JsonInclude(NON_DEFAULT)
 @Entity
-public class CurrentBelowInfo {
+public class FavouriteEvents {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String description;
+    private Long eventId;
+    private String title;
+    private Date event_date;
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime time;
+    private String illustration;
+    private boolean favourite;
+    private boolean active;
 }

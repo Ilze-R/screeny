@@ -1,25 +1,26 @@
 package com.example.swscreen.service;
 
-import com.example.swscreen.domain.BelowInfo;
-import com.example.swscreen.domain.CurrentBelowInfo;
-import com.example.swscreen.domain.SavedBelowInfo;
+import com.example.swscreen.domain.FavouriteImportant;
+import com.example.swscreen.domain.Important;
 
 import java.util.List;
 
 public interface ImportantService {
 
-    BelowInfo createImportant(BelowInfo belowInfo);
+   Important createImportant(Important important);
 
-   SavedBelowInfo saveImportant(SavedBelowInfo savedBelowInfo, Long id);
+   FavouriteImportant saveFavouriteImportant(FavouriteImportant favouriteImportant, Long id);
 
     void deleteImportant(Long id);
     void deleteFavouriteImportant(Long id);
 
-    List<BelowInfo> getAllImportant();
+    List<Important> getAllImportant();
 
-    List<SavedBelowInfo> getAllSavedImportant();
+    List<FavouriteImportant> getAllFavouriteImportant();
 
-    CurrentBelowInfo getCurrentImportant();
+  void updateImportant(Long id, String description);
 
-  void updateImportantInformation(Long id, String description);
+  void deactivateImportant(Long id);
+
+    void activateImportant(Long id);
 }

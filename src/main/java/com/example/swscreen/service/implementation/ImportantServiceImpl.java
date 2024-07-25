@@ -1,8 +1,7 @@
 package com.example.swscreen.service.implementation;
 
-import com.example.swscreen.domain.BelowInfo;
-import com.example.swscreen.domain.CurrentBelowInfo;
-import com.example.swscreen.domain.SavedBelowInfo;
+import com.example.swscreen.domain.FavouriteImportant;
+import com.example.swscreen.domain.Important;
 import com.example.swscreen.repository.ImportantRepository;
 import com.example.swscreen.service.ImportantService;
 import lombok.RequiredArgsConstructor;
@@ -14,16 +13,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImportantServiceImpl implements ImportantService {
 
-    private final ImportantRepository<BelowInfo> importantRepository;
+    private final ImportantRepository<Important> importantRepository;
 
     @Override
-    public BelowInfo createImportant(BelowInfo belowInfo) {
+    public Important createImportant(Important belowInfo) {
         return importantRepository.createImportant(belowInfo);
     }
 
     @Override
-    public SavedBelowInfo saveImportant(SavedBelowInfo savedBelowInfo, Long id) {
-        return importantRepository.saveImportant(savedBelowInfo, id);
+    public FavouriteImportant saveFavouriteImportant(FavouriteImportant favouriteImportant, Long id) {
+        return importantRepository.saveFavouriteImportant(favouriteImportant, id);
     }
 
     @Override
@@ -37,22 +36,27 @@ public class ImportantServiceImpl implements ImportantService {
     }
 
     @Override
-    public List<BelowInfo> getAllImportant() {
+    public List<Important> getAllImportant() {
         return importantRepository.getAllImportant();
     }
 
     @Override
-    public List<SavedBelowInfo> getAllSavedImportant() {
-        return importantRepository.getAllSavedImportant();
+    public List<FavouriteImportant> getAllFavouriteImportant() {
+        return importantRepository.getAllFavouriteImportant();
     }
 
     @Override
-    public CurrentBelowInfo getCurrentImportant() {
-        return importantRepository.getCurrentImportant();
+    public void updateImportant(Long id, String description) {
+         importantRepository.updateImportant(id, description);
     }
 
     @Override
-    public void updateImportantInformation(Long id, String description) {
-         importantRepository.updateImportantInformation(id, description);
+    public void deactivateImportant(Long id) {
+        importantRepository.deactivateImportant(id);
+    }
+
+    @Override
+    public void activateImportant(Long id) {
+        importantRepository.activateImportant(id);
     }
 }

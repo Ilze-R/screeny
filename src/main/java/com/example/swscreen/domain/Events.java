@@ -29,8 +29,10 @@ public class Events {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private Date created_at;
+    private Date event_date;
     @JsonFormat(pattern = "HH:mm")
     private LocalTime time;
     private String illustration;
+    private boolean favourite;
+    private boolean active;
 }

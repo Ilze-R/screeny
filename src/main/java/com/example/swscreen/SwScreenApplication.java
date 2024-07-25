@@ -3,6 +3,7 @@ package com.example.swscreen;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -13,9 +14,16 @@ import java.util.List;
 
 @SpringBootApplication
 public class SwScreenApplication {
+	private static final int STRENGTH = 12;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(SwScreenApplication.class, args);
+	}
+
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder(){
+		return new BCryptPasswordEncoder(STRENGTH);
 	}
 
 	@Bean
@@ -34,17 +42,5 @@ public class SwScreenApplication {
 		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(urlBasedCorsConfigurationSource);
 	}
-
-//	@Bean
-//	public CorsFilter corsFilter() {
-//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		CorsConfiguration config = new CorsConfiguration();
-//		config.setAllowCredentials(true);
-//		config.addAllowedOrigin("http://screen.local:8080");
-//		config.addAllowedHeader("*");
-//		config.addAllowedMethod("*");
-//		source.registerCorsConfiguration("/**", config);
-//		return new CorsFilter(source);
-//	}
 
 }

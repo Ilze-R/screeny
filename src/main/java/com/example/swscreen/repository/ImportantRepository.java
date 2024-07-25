@@ -1,26 +1,27 @@
 package com.example.swscreen.repository;
 
-import com.example.swscreen.domain.BelowInfo;
-import com.example.swscreen.domain.CurrentBelowInfo;
-import com.example.swscreen.domain.SavedBelowInfo;
+import com.example.swscreen.domain.FavouriteImportant;
+import com.example.swscreen.domain.Important;
 
 import java.util.List;
 
-public interface ImportantRepository  <T extends BelowInfo>{
+public interface ImportantRepository  <T extends Important>{
 
-    T createImportant(BelowInfo belowInfo);
+    T createImportant(Important important);
 
-    SavedBelowInfo saveImportant(SavedBelowInfo savedBelowInfo, Long id);
+   FavouriteImportant saveFavouriteImportant(FavouriteImportant historyImportant, Long id);
 
     void deleteImportant(Long id);
 
     void deleteFavouriteImportant(Long id);
 
-    List<BelowInfo> getAllImportant();
+    List<Important> getAllImportant();
 
-    List<SavedBelowInfo> getAllSavedImportant();
+    List<FavouriteImportant> getAllFavouriteImportant();
 
-    CurrentBelowInfo getCurrentImportant();
+     void updateImportant(Long id, String description);
 
-     void updateImportantInformation(Long id, String description);
+     void deactivateImportant(Long id);
+
+    void activateImportant(Long id);
 }
