@@ -30,8 +30,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public void updateNews(Long id, String description) {
-        newsRepository.updateNews(id, description);
+    public void updateNews(Long id, String title, String description) {
+        newsRepository.updateNews(id, title, description);
     }
 
     @Override

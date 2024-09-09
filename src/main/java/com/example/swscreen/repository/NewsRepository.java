@@ -13,7 +13,7 @@ public interface NewsRepository<T extends News>{
 
     void deleteNews(Long id);
 
-    void updateNews(Long id, String description);
+    void updateNews(Long id, String title, String description);
 
     void deactivateNews(Long id);
 

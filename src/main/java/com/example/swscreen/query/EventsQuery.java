@@ -14,6 +14,6 @@ public class EventsQuery {
 
     public static final String SELECT_EVENTS_FROM_FAVOURITES_QUERY = "SELECT * FROM favourite_events";
 
-    public static final String UPDATE_EVENTS_QUERY = "UPDATE events SET title = ? WHERE id = ?";
+    public static final String UPDATE_EVENTS_QUERY = "UPDATE events SET title = ?, event_date = ?, time = ? WHERE id = ?";
 
 }

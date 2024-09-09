@@ -80,9 +80,9 @@ public class NewsRepositoryImpl implements NewsRepository<News> {
     }
 
     @Override
-    public void updateNews(Long id, String description) {
+    public void updateNews(Long id, String title, String description) {
         try {
-            jdbcTemplate.update(UPDATE_NEWS_QUERY, description, id);
+            jdbcTemplate.update(UPDATE_NEWS_QUERY, title, description, id);
         } catch (EmptyResultDataAccessException exception) {
             throw new ApiException("No news found by id: " + id);
         } catch (Exception exception) {

@@ -31,17 +31,25 @@ public class SecurityConfig {
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final UserDetailsService userDetailsService;
     private final CustomAuthorizationFilter customAuthorizationFilter;
-    private static final String[] PUBLIC_URLS = {"/user/new/password/**", "/user/verify/password/**", "/api/login/**", "/user/verify/code/**", "/api/register/**", "/user/resetpassword/**", "/user/verify/account/**", "/api/refresh/token/**", "/user/image/**", "/api/**", "/api/dashboard"};
+    private static final String[] PUBLIC_URLS = {"/user/new/password/**", "/user/verify/password/**", "/api/login/**", "/user/verify/code/**", "/api/register/**", "/user/resetpassword/**", "/user/verify/account/**", "/api/refresh/token/**", "/user/image/**", "/api/**", "/api/dashboard", "/api/news"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().cors();//.disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeHttpRequests().requestMatchers(PUBLIC_URLS).permitAll();
-        http.authorizeHttpRequests().requestMatchers(DELETE, "/user/delete/**").hasAnyAuthority("DELETE:USER");
-        http.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler).authenticationEntryPoint(customAuthenticationEntryPoint);
-        http.authorizeHttpRequests().anyRequest().authenticated();
+
+        http.authorizeHttpRequests()
+                .requestMatchers(PUBLIC_URLS).permitAll()
+                .requestMatchers(DELETE, "/user/delete/**").hasAnyAuthority("DELETE:USER")
+                .anyRequest().authenticated();
+
+
+        http.exceptionHandling()
+                .accessDeniedHandler(customAccessDeniedHandler)
+                .authenticationEntryPoint(customAuthenticationEntryPoint);
+//        http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
@@ -53,11 +61,4 @@ public class SecurityConfig {
         return new ProviderManager(authProvider);
     }
 
-//    private static final String[] PUBLIC_URLS = {"/some/some/some/**"};
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http.csrf().disable().cors();
-//        http.authorizeHttpRequests().anyRequest().permitAll();
-//        return http.build();
-//    }
 }

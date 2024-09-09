@@ -7,6 +7,8 @@ import com.example.swscreen.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,8 +32,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void updateEvent(Long id, String description) {
-eventRepository.updateEvent(id, description);
+    public void updateEvent(Long id, String title, Date date, LocalTime time) {
+eventRepository.updateEvent(id, title, date, time);
     }
 
     @Override

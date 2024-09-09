@@ -13,5 +13,7 @@ public class NewsQuery {
 
     public static final String SELECT_NEWS_FROM_FAVOURITES_QUERY = "SELECT * FROM favourite_news";
 
-    public static final String UPDATE_NEWS_QUERY = "UPDATE news SET description = ? WHERE id = ?";
+   // public static final String UPDATE_NEWS_QUERY = "UPDATE news SET description = ? WHERE id = ?";
+
+    public static final String UPDATE_NEWS_QUERY = "UPDATE news SET title = ?, description = ? WHERE id = ?";
 }

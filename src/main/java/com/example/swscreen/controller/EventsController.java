@@ -3,6 +3,8 @@ package com.example.swscreen.controller;
 import com.example.swscreen.domain.Events;
 import com.example.swscreen.domain.FavouriteEvents;
 import com.example.swscreen.domain.HttpResponse;
+import com.example.swscreen.dto.UpdateEventsRequestDTO;
+import com.example.swscreen.dto.UpdateNewsRequestDTO;
 import com.example.swscreen.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -11,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 import static java.time.LocalTime.now;
@@ -65,8 +69,11 @@ public class EventsController {
     }
 
     @PatchMapping("/update/event/{id}")
-    public ResponseEntity<HttpResponse> updateEvent(@PathVariable("id") Long id, @RequestBody String title){
-        eventService.updateEvent(id, title);
+    public ResponseEntity<HttpResponse> updateEvent(@PathVariable("id") Long id, @RequestBody UpdateEventsRequestDTO updateEventsRequestDTO){
+      String title = updateEventsRequestDTO.getTitle();
+      Date date = updateEventsRequestDTO.getEvent_date();
+      LocalTime time = updateEventsRequestDTO.getTime();
+        eventService.updateEvent(id, title, date, time);
         return ResponseEntity.ok().body(
                 HttpResponse.builder()
                         .timeStamp(now().toString())

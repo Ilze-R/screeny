@@ -2,6 +2,8 @@ package com.example.swscreen.repository;
 import com.example.swscreen.domain.Events;
 import com.example.swscreen.domain.FavouriteEvents;
 
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 public interface EventRepository  <T extends Events>{
@@ -12,7 +14,7 @@ public interface EventRepository  <T extends Events>{
 
     void deleteEvent(Long id);
 
-    void updateEvent(Long id, String title);
+    void updateEvent(Long id, String title, Date date, LocalTime time);
 
     void deactivateEvent(Long id);
 

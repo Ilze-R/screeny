@@ -29,7 +29,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
     private static final String TOKEN_PREFIX = "Bearer ";
-    private static final String[] PUBLIC_ROUTES = {"/api/register", "/api/login", "/user/verify/code", "/user/refresh/token", "/user/image"};
+    private static final String[] PUBLIC_ROUTES = {"/api/register", "/api/login", "/user/verify/code", "/user/refresh/token", "/user/image", "/", "/api/news", "/api/events", "/api/important"};
     private static final String HTTP_OPTIONS_METHOD = "OPTIONS";
     private final TokenProvider tokenProvider;
 
@@ -54,8 +54,10 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return request.getHeader(AUTHORIZATION) == null || !request.getHeader(AUTHORIZATION).startsWith(TOKEN_PREFIX) ||
-                request.getMethod().equalsIgnoreCase(HTTP_OPTIONS_METHOD) || asList(PUBLIC_ROUTES).contains(request.getRequestURI());
+        return request.getHeader(AUTHORIZATION) == null ||
+                !request.getHeader(AUTHORIZATION).startsWith(TOKEN_PREFIX) ||
+                request.getMethod().equalsIgnoreCase(HTTP_OPTIONS_METHOD)
+                || asList(PUBLIC_ROUTES).contains(request.getRequestURI());
     }
 
     private Long getUserId(HttpServletRequest request){

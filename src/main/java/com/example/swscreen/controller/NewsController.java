@@ -3,6 +3,7 @@ package com.example.swscreen.controller;
 import com.example.swscreen.domain.FavouriteNews;
 import com.example.swscreen.domain.HttpResponse;
 import com.example.swscreen.domain.News;
+import com.example.swscreen.dto.UpdateNewsRequestDTO;
 import com.example.swscreen.service.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -91,8 +92,10 @@ public class NewsController {
     }
 
     @PatchMapping("/update/news/{id}")
-    public ResponseEntity<HttpResponse> updateNews(@PathVariable("id") Long id, @RequestBody String description){
-        newsService.updateNews(id, description);
+    public ResponseEntity<HttpResponse> updateNews(@PathVariable("id") Long id, @RequestBody UpdateNewsRequestDTO updateNewsRequestDTO){
+        String title = updateNewsRequestDTO.getTitle();
+        String description = updateNewsRequestDTO.getDescription();
+        newsService.updateNews(id, title, description);
         return ResponseEntity.ok().body(
                 HttpResponse.builder()
                         .timeStamp(now().toString())

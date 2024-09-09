@@ -19,10 +19,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.time.LocalTime;
+import java.util.*;
 
 import static com.example.swscreen.query.EventsQuery.*;
 
@@ -76,9 +74,9 @@ public class EventRepositoryImpl  implements EventRepository<Events> {
     }
 
     @Override
-    public void updateEvent(Long id, String title) {
+    public void updateEvent(Long id, String title, Date date, LocalTime time) {
         try {
-            jdbcTemplate.update(UPDATE_EVENTS_QUERY, title, id);
+            jdbcTemplate.update(UPDATE_EVENTS_QUERY, title, date, time, id);
         } catch (EmptyResultDataAccessException exception) {
             throw new ApiException("No event found by id: " + id);
         } catch (Exception exception) {
